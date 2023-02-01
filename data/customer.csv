@@ -1,0 +1,7 @@
+"id","name","email","country_id","premium_customer"
+1000,"Alberto Alvaro","alberto@alvaro.com", 1001,"yes"
+1001,"Quoc Dat Pham","qd.pham@bigprojects.com", 1008,"yes"
+1002,"John Smith","john@pocahontas.ca", 1007,"no"
+1003,"Yiannis Constantinos","constantinos@hwb.com", 1004,"yes"
+1004,"Maxime Van Buyten","mvb@city.brussels", 1000,"no"
+1005,"Jane Doe","jdoe@skynet.be", 1000,"yes"
