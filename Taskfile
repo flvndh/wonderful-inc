@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+DB=data/wonderful.db
+
+
+function init() {
+    # Install the required dependencies
+
+    pip install -r requirements.txt
+    pre-commit install
+}
+
+function build() {
+    # Build the dbt project
+
+    dbt deps
+    dbt seed
+    dbt run
+}
+
+function test() {
+    # Run the dbt tests
+
+    dbt test
+}
+
+function clean() {
+    # Remove all generated artifacts
+
+    rm -f ${DB}
+    dbt clean
+}
+
+function docs() {
+    # Generate and serve the dbt documentation
+
+    dbt docs generate
+    dbt docs serve --no-browser
+}
+
+function preview() {
+    # Preview the table content or schema
+
+    if [ "${1}" = "table" ]; then
+        PREVIEW_CMD="TABLE"
+    elif [ "${1}" = "schema" ]; then
+        PREVIEW_CMD="SHOW TABLE"
+    else
+        echo "Unrecognized option '${1}'"
+        exit 1
+    fi
+
+    echo '.mode minimal; select table_schema, table_name from information_schema.tables' \
+    | duckcli ${DB} -t \
+    | awk '{printf "%s.%s\n", $1, $2}' \
+    | fzf --tac --preview "echo '${PREVIEW_CMD} {}' | duckcli ${DB} -t"
+}
+
+
+function explore() {
+    # Open the database CLI interface
+
+    duckcli ${DB}
+}
+
+"${@}"

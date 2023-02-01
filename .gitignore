@@ -1,0 +1,12 @@
+# direnv
+.envrc
+
+# python
+.venv
+
+# dbt
+target/
+dbt_packages/
+logs/
+.user.yml
+*.db

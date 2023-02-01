@@ -1,0 +1,8 @@
+wonderful:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: data/wonderful.db
+      database: wonderful
+      schema: default
